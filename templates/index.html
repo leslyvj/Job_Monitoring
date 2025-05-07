@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Job Monitoring System</title>
+</head>
+<body>
+    <h1>Welcome to the Job Monitoring System</h1>
+
+    {% if user %}
+        <p>👋 Logged in as: {{ user }}</p>
+        <p><a href="{{ url_for('logout') }}">Logout</a></p>
+        <p><a href="{{ url_for('jobs') }}">View Clustered Job Listings</a></p>
+    {% else %}
+        <p><a href="{{ url_for('login') }}">Login / Register</a></p>
+    {% endif %}
+</body>
+</html>
