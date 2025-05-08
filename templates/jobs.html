@@ -3,9 +3,72 @@
 <head>
     <title>Clustered Job Listings</title>
     <style>
-        .data { border-collapse: collapse; width: 100%; }
-        .data th, .data td { border: 1px solid #ddd; padding: 8px; }
-        .data th { background-color: #f2f2f2; }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+        h2 {
+            text-align: center;
+            color: #333333;
+        }
+        form {
+            margin: 20px 0;
+            text-align: center;
+        }
+        label {
+            font-weight: bold;
+            color: #555555;
+        }
+        select {
+            padding: 8px;
+            margin: 0 10px;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .data {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+        .data th, .data td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        .data th {
+            background-color: #f2f2f2;
+            color: #333333;
+        }
+        .data tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .data tr:hover {
+            background-color: #f1f1f1;
+        }
+        a {
+            text-decoration: none;
+            color: #007bff;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        p {
+            text-align: center;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>

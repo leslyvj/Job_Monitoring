@@ -1,5 +1,6 @@
 {
     "shammas.p1231@gmail.com": {
-        "preferred_cluster": 1
+        "preferred_cluster": 3,
+        "notify": true
     }
 }

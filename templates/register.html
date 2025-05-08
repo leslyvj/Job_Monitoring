@@ -2,15 +2,66 @@
 <html>
 <head>
     <title>Register - Job Monitoring System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        h2 {
+            text-align: center;
+            color: #333333;
+        }
+        label {
+            font-weight: bold;
+            color: #555555;
+        }
+        input[type="email"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    <h2>Register to Get Job Notifications</h2>
-    <form method="POST">
-        <label>Email:</label><br>
-        <input type="email" name="email" required><br><br>
-        <label>Preferred Cluster (e.g. 0 - 4):</label><br>
-        <input type="number" name="cluster" min="0" max="4" required><br><br>
-        <input type="submit" value="Register">
-    </form>
+    <div class="container">
+        <h2>Register to Get Job Notifications</h2>
+        <form method="POST">
+            <label>Email:</label><br>
+            <input type="email" name="email" required><br>
+            <label>Preferred Cluster (e.g. 0 - 4):</label><br>
+            <input type="number" name="cluster" min="0" max="4" required><br>
+            <input type="submit" value="Register">
+        </form>
+    </div>
 </body>
 </html>

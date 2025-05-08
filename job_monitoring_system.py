@@ -11,7 +11,7 @@ import requests
 import time
 
 # Scrape job listings from karkidi.com (simplified mock)
-def scrape_karkidi_jobs(keyword="data science", pages=1):
+def scrape_karkidi_jobs(keyword="data science", pages=5):
     headers = {'User-Agent': 'Mozilla/5.0'}
     base_url = "https://www.karkidi.com/Find-Jobs/{page}/all/India?search={query}"
     jobs_list = []
