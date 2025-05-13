@@ -13,10 +13,13 @@ app.secret_key = 'your_secret_key'  # Replace with a secure secret key
 # Load or create user preferences
 def load_user_preferences(filename="user_preferences.json"):
     if os.path.exists(filename):
-        with open(filename, 'r') as f:
-            return json.load(f)
+        try:
+            with open(filename, 'r') as f:
+                return json.load(f)
+        except json.JSONDecodeError:
+            # If the file is corrupted or empty, reset it to an empty dictionary
+            return {}
     return {}
-
 def save_user_preferences(prefs, filename="user_preferences.json"):
     with open(filename, 'w') as f:
         json.dump(prefs, f, indent=4)
@@ -29,11 +32,31 @@ def home():
 def login():
     if request.method == 'POST':
         email = request.form['email']
-        cluster = int(request.form['cluster'])
+        skills = request.form['skills']  # Get the skills input from the form
         notify = 'notify' in request.form
 
+        # Load the trained model and vectorizer
+        if not os.path.exists("job_model.pkl"):
+            return "Model not found. Please train the model first.", 500
+
+        with open("job_model.pkl", "rb") as f:
+            model, vectorizer = pickle.load(f)
+
+        # Preprocess and vectorize the user's skills
+        try:
+            # Convert the skills input into a DataFrame
+            skills_df = pd.DataFrame({"Skills": [skills]})  # Adjust this based on preprocess_skills requirements
+            skills_df = preprocess_skills(skills_df)  # Preprocess the DataFrame
+            skills_vector = vectorizer.transform(skills_df["Skills"])  # Vectorize the processed skills
+
+            # Predict the cluster for the user's skills
+            predicted_cluster = int(model.predict(skills_vector)[0])  # Convert to Python int
+        except Exception as e:
+            return f"Error processing skills: {e}", 500
+
+        # Save user preferences
         prefs = load_user_preferences()
-        prefs[email] = {"preferred_cluster": cluster, "notify": notify}
+        prefs[email] = {"predicted_cluster": predicted_cluster, "notify": notify}
         save_user_preferences(prefs)
 
         session['email'] = email

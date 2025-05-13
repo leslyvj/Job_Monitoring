@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <center>
+<head> 
     <title>Login - Job Monitoring System</title>
-    </center>   
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -32,7 +30,7 @@
             color: #555555;
         }
         input[type="email"],
-        input[type="number"] {
+        input[type="text"] {
             width: 100%;
             padding: 10px;
             margin: 8px 0;
@@ -64,8 +62,8 @@
             <label>Email:</label><br>
             <input type="email" name="email" required><br><br>
 
-            <label>Preferred Cluster (0 - 4):</label><br>
-            <input type="number" name="cluster" min="0" max="4" required><br><br>
+            <label>Your Skills (comma-separated):</label><br>
+            <input type="text" name="skills" placeholder="e.g., Python, Machine Learning, SQL" required><br><br>
 
             <input type="checkbox" name="notify" id="notify">
             <label for="notify">Notify me when matching jobs are posted</label><br><br>

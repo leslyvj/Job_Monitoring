@@ -4,30 +4,41 @@ import json
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import pandas as pd
+import os
 
-def notify_users(matches, preferences_file):
+def notify_users(matches, preferences_file, notified_jobs_file="notified_jobs.json"):
     # Load user preferences from the JSON file
     with open(preferences_file, 'r') as file:
         user_preferences = json.load(file)
 
+    # Load previously notified jobs
+    if not os.path.exists(notified_jobs_file):
+        notified_jobs = {}
+    else:
+        with open(notified_jobs_file, 'r') as file:
+            notified_jobs = json.load(file)
+
     sender_email = "jobmonitor19@gmail.com"  # Replace with your email
-    sender_password = "12345678a,"      # Replace with your email password or app password
+    sender_password = "bjpokmrdurcjhgyf"
 
     for user_email, preferences in user_preferences.items():
         if not preferences.get("notify", False):
             continue  # Skip users who have opted out of notifications
 
-        user_cluster = preferences.get("preferred_cluster")
+        user_cluster = preferences.get("predicted_cluster")
         cluster_matches = matches[matches['cluster'] == user_cluster]
 
-        if cluster_matches.empty:
+        # Filter out jobs that have already been notified
+        new_jobs = cluster_matches[~cluster_matches['id'].isin(notified_jobs.get(user_email, []))]
+
+        if new_jobs.empty:
             print(f"No new jobs available for {user_email} in Cluster {user_cluster}.")
             continue
 
         subject = "New Job Matches Based on Your Preferences"
         body = f"Here are the new jobs matching your interests in Cluster {user_cluster}:\n\n"
 
-        for _, row in cluster_matches.iterrows():
+        for _, row in new_jobs.iterrows():
             body += f"- {row['title']} at {row['company']}\n  Skills: {row['skills']}\n\n"
 
         msg = MIMEMultipart()
@@ -43,16 +54,15 @@ def notify_users(matches, preferences_file):
             server.send_message(msg)
             server.quit()
             print(f"✅ Email sent to {user_email}")
+
+            # Update notified jobs
+            notified_jobs.setdefault(user_email, []).extend(new_jobs['id'].tolist())
         except Exception as e:
             print(f"❌ Failed to send email to {user_email}: {e}")
 
+    # Save updated notified jobs
+    with open(notified_jobs_file, 'w') as file:
+        json.dump(notified_jobs, file, indent=4)
 
 
-# Example usage
-matches = pd.DataFrame([
-    {'title': 'Software Engineer', 'company': 'TechCorp', 'skills': 'Python, Django', 'cluster': 1},
-    {'title': 'Data Scientist', 'company': 'DataInc', 'skills': 'Python, Machine Learning', 'cluster': 2},
-])
 
-preferences_file = "d:\\job_monitoring_system\\user_preferences.json"
-notify_users(matches, preferences_file)
