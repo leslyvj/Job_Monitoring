@@ -4,6 +4,7 @@ import json
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import pandas as pd
+from dotenv import load_dotenv
 import os
 
 def notify_users(matches, preferences_file, notified_jobs_file="notified_jobs.json"):
@@ -19,7 +20,11 @@ def notify_users(matches, preferences_file, notified_jobs_file="notified_jobs.js
             notified_jobs = json.load(file)
 
     sender_email = "jobmonitor19@gmail.com"  # Replace with your email
-    sender_password = "bjpokmrdurcjhgyf"
+    load_dotenv()  # Load environment variables from .env file
+    # Use environment variable for the password
+    sender_password = os.getenv("GMAIL_APP_PASSWORD")
+    print(sender_password)
+
 
     for user_email, preferences in user_preferences.items():
         if not preferences.get("notify", False):
