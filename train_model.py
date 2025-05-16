@@ -5,7 +5,8 @@ from sklearn.cluster import KMeans
 from job_monitoring_system import scrape_karkidi_jobs, preprocess_skills, vectorize_skills
 
 # Step 1: Scrape and preprocess job data
-df = scrape_karkidi_jobs(keyword="data science", pages=2)
+df = scrape_karkidi_jobs(keyword="data science", pages=5)
+df.to_csv('jobs_data.csv', index=False)
 df = preprocess_skills(df)
 
 # Step 2: Vectorize skills

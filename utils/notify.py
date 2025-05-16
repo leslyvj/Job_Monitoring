@@ -23,7 +23,7 @@ def notify_users(matches, preferences_file, notified_jobs_file="notified_jobs.js
     load_dotenv()  # Load environment variables from .env file
     # Use environment variable for the password
     sender_password = os.getenv("GMAIL_APP_PASSWORD")
-    print(sender_password)
+    
 
 
     for user_email, preferences in user_preferences.items():

@@ -1,6 +1,18 @@
 {
     "shammas.p1231@gmail.com": {
+        "predicted_cluster": 4,
+        "notify": true
+    },
+    "lesly.ds2@duk.ac.in": {
         "predicted_cluster": 2,
+        "notify": true
+    },
+    "mohammedp.ds24@duk.ac.in": {
+        "predicted_cluster": 2,
+        "notify": true
+    },
+    "adityajayasundar007@gmail.com": {
+        "predicted_cluster": 4,
         "notify": true
     }
 }

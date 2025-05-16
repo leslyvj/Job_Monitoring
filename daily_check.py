@@ -3,6 +3,7 @@
 import os
 import json
 import pickle
+from utils.notify import notify_users
 from job_monitoring_system import scrape_karkidi_jobs, preprocess_skills, load_model
 
 # Load previous jobs
@@ -23,33 +24,33 @@ def load_user_preferences(filename="user_preferences.json"):
             return json.load(f)
     return {}
 
-# Mock notification
-def notify_user(email, job):
-    print(f"\n📬 Notifying {email}: New job posted that matches your interest!")
-    print(f"→ {job['Title']} at {job['Company']} | Location: {job['Location']}")
 
 # Main process
 def check_new_jobs():
     seen_jobs = load_seen_jobs()
     prefs = load_user_preferences()
-    df = scrape_karkidi_jobs(keyword="data science", pages=3)
+    df = scrape_karkidi_jobs(keyword="data science", pages=6)
     df = preprocess_skills(df)
 
     model, vectorizer = load_model()
     X = vectorizer.transform(df['Skills'])
     df['cluster'] = model.predict(X)
 
-    new_seen = seen_jobs.copy()
+    # Make sure 'id', 'title', 'company', 'skills' columns exist for notify_users
+    if 'id' not in df.columns:
+        df['id'] = df['Title'] + ' - ' + df['Company']
+    if 'title' not in df.columns:
+        df['title'] = df['Title']
+    if 'company' not in df.columns:
+        df['company'] = df['Company']
+    if 'skills' not in df.columns:
+        df['skills'] = df['Skills']
 
-    for _, job in df.iterrows():
-        job_id = job['Title'] + ' - ' + job['Company']
-        if job_id not in seen_jobs:
-            for email, pref in prefs.items():
-                if pref.get("notify") and job['cluster'] == pref.get("preferred_cluster"):
-                    notify_user(email, job)
-            new_seen.add(job_id)
+    # Call notify_users with the DataFrame and preferences file
+    notify_users(df, "user_preferences.json")
 
+    # Optionally update seen jobs if needed
+    new_seen = set(df['id'])
     save_seen_jobs(new_seen)
 
-if __name__ == "__main__":
-    check_new_jobs()
+check_new_jobs()

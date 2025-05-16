@@ -74,7 +74,7 @@ def jobs():
     if 'email' not in session:
         return redirect(url_for('login'))
 
-    df = scrape_karkidi_jobs()
+    df = pd.read_csv('jobs_data.csv')
     df = preprocess_skills(df)
 
     if not os.path.exists("job_model.pkl"):
