@@ -14,5 +14,9 @@
     "adityajayasundar007@gmail.com": {
         "predicted_cluster": 4,
         "notify": true
+    },
+    "leslysherlock@gmail.com": {
+        "predicted_cluster": 0,
+        "notify": true
     }
 }
