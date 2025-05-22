@@ -1,5 +1,3 @@
-# app.py (Flask Web App Version of Job Monitoring System with Email-only Login and Notification Option)
-
 from flask import Flask, request, render_template, redirect, url_for, session
 import pandas as pd
 import os
@@ -95,5 +93,7 @@ def jobs():
 
     return render_template('jobs.html', tables=[df.to_html(classes='data', header="true")], cluster_filter=cluster_filter, user=session.get('email'))
 
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
