@@ -4,38 +4,58 @@
     <title>Job Monitoring System</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #6b73ff 0%, #000dff 100%);
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            color: #f0f0f5;
         }
         .container {
             text-align: center;
-            background: #ffffff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px 25px;
+            border-radius: 12px;
+            box-shadow: 0 12px 28px rgba(0, 0, 50, 0.4);
             width: 100%;
-            max-width: 400px;
+            max-width: 420px;
+            backdrop-filter: blur(10px);
         }
         h1 {
-            color: #333333;
+            color: #ffdd57;
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-shadow: 1px 1px 6px rgba(255, 221, 87, 0.7);
+            font-size: 28px;
         }
         p {
-            font-size: 16px;
-            color: #555555;
+            font-size: 18px;
+            color: #e0e0f0;
+            margin: 15px 0;
         }
         a {
+            display: inline-block;
+            margin-top: 10px;
             text-decoration: none;
-            color: #007bff;
-            font-weight: bold;
+            color: #ffdd57;
+            font-weight: 700;
+            font-size: 18px;
+            padding: 8px 20px;
+            border: 2px solid #ffdd57;
+            border-radius: 30px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            user-select: none;
         }
         a:hover {
-            text-decoration: underline;
+            background-color: #ffdd57;
+            color: #1e1e2f;
+            text-decoration: none;
+        }
+        strong {
+            color: #fff;
         }
     </style>
 </head>
