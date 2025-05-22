@@ -4,70 +4,118 @@
     <title>Clustered Job Listings</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #6b73ff 0%, #000dff 100%);
             margin: 0;
-            padding: 20px;
+            padding: 30px 20px;
+            color: #fff;
+            min-height: 100vh;
+            box-sizing: border-box;
         }
         h2 {
             text-align: center;
-            color: #333333;
+            color: #ffdd57;
+            font-weight: 700;
+            font-size: 32px;
+            margin-bottom: 25px;
+            text-shadow: 1px 1px 6px rgba(255, 221, 87, 0.7);
         }
         form {
-            margin: 20px 0;
             text-align: center;
+            margin-bottom: 30px;
         }
         label {
-            font-weight: bold;
-            color: #555555;
+            font-weight: 600;
+            color: #ffdd57;
+            font-size: 16px;
+            margin-right: 10px;
+            user-select: none;
         }
         select {
-            padding: 8px;
-            margin: 0 10px;
-            border: 1px solid #cccccc;
-            border-radius: 4px;
+            padding: 10px 14px;
+            border-radius: 8px;
+            border: none;
+            font-size: 16px;
+            background-color: #2c2c44;
+            color: #eee;
+            box-shadow: 0 0 6px rgba(0,0,0,0.3);
+            transition: background-color 0.3s ease;
+            min-width: 150px;
+        }
+        select:hover, select:focus {
+            background-color: #3a3a5c;
+            outline: none;
+            box-shadow: 0 0 12px #ffdd57;
         }
         button {
-            background-color: #007bff;
-            color: white;
-            padding: 8px 16px;
+            background-color: #ffdd57;
+            color: #1e1e2f;
+            font-weight: 700;
+            font-size: 16px;
+            padding: 10px 22px;
+            margin-left: 12px;
             border: none;
-            border-radius: 4px;
+            border-radius: 10px;
             cursor: pointer;
+            box-shadow: 0 6px 14px rgba(255, 221, 87, 0.6);
+            transition: background-color 0.3s ease;
+            user-select: none;
         }
         button:hover {
-            background-color: #0056b3;
+            background-color: #f6c91d;
+            box-shadow: 0 8px 20px rgba(246, 201, 29, 0.8);
         }
         .data {
-            border-collapse: collapse;
             width: 100%;
-            margin-top: 20px;
+            border-collapse: collapse;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+            background-color: #1e1e2f;
+            border-radius: 10px;
+            overflow: hidden;
         }
         .data th, .data td {
-            border: 1px solid #ddd;
-            padding: 10px;
+            padding: 14px 18px;
             text-align: left;
+            border-bottom: 1px solid #2c2c44;
+            color: #ddd;
+            font-size: 15px;
         }
         .data th {
-            background-color: #f2f2f2;
-            color: #333333;
-        }
-        .data tr:nth-child(even) {
-            background-color: #f9f9f9;
+            background-color: #2c2c44;
+            color: #ffdd57;
+            font-weight: 700;
         }
         .data tr:hover {
-            background-color: #f1f1f1;
+            background-color: #3a3a5c;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
         }
         a {
+            color: #ffdd57;
             text-decoration: none;
-            color: #007bff;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 25px;
+            user-select: none;
+            text-shadow: 1px 1px 3px rgba(255, 221, 87, 0.7);
         }
         a:hover {
             text-decoration: underline;
         }
         p {
             text-align: center;
-            margin-top: 20px;
+        }
+        /* Responsive */
+        @media (max-width: 600px) {
+            .data th, .data td {
+                font-size: 13px;
+                padding: 10px 12px;
+            }
+            button, select {
+                font-size: 14px;
+                padding: 8px 14px;
+            }
         }
     </style>
 </head>
@@ -89,6 +137,7 @@
 
     <br>
     {{ tables[0]|safe }}
+
     <p><a href="{{ url_for('home') }}">← Back to Home</a></p>
 </body>
 </html>
